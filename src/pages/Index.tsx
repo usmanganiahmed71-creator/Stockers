@@ -1,12 +1,25 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useTheme } from '@/components/ThemeProvider';
+import Navigation from '@/components/Navigation';
+import HeroSection from '@/components/sections/HeroSection';
+import WhatWeDoSection from '@/components/sections/WhatWeDoSection';
+import HowYouLearnSection from '@/components/sections/HowYouLearnSection';
+import LegendsSection from '@/components/sections/LegendsSection';
+import StalkUsSection from '@/components/sections/StalkUsSection';
 
 const Index = () => {
+  const { theme, toggleTheme } = useTheme();
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen bg-background">
+      <Navigation isDark={theme === 'dark'} toggleTheme={toggleTheme} />
+      
+      <main>
+        <HeroSection />
+        <WhatWeDoSection />
+        <HowYouLearnSection />
+        <LegendsSection />
+        <StalkUsSection />
+      </main>
     </div>
   );
 };
