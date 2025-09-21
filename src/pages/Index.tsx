@@ -1,4 +1,5 @@
 import { useTheme } from '@/components/ThemeProvider';
+import ClickSpark from '../components/ClickSpark';
 import Navigation from '@/components/Navigation';
 import HeroSection from '@/components/sections/HeroSection';
 import WhatWeDoSection from '@/components/sections/WhatWeDoSection';
@@ -10,17 +11,18 @@ const Index = () => {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <div className="min-h-screen bg-background">
-      <Navigation isDark={theme === 'dark'} toggleTheme={toggleTheme} />
-      
-      <main>
-        <HeroSection />
-        <WhatWeDoSection />
-        <HowYouLearnSection />
-        <LegendsSection />
-        <StalkUsSection />
-      </main>
-    </div>
+    <ClickSpark>
+      <div className="min-h-screen bg-background">
+        <Navigation isDark={theme === 'dark'} toggleTheme={toggleTheme} />
+        <main>
+          <HeroSection />
+          <WhatWeDoSection />
+          <HowYouLearnSection />
+          <LegendsSection />
+          <StalkUsSection />
+        </main>
+      </div>
+    </ClickSpark>
   );
 };
 

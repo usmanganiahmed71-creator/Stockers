@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Card, CardContent } from '@/components/ui/card';
+import ScrollStack, { ScrollStackItem } from '@/components/ScrollStack';
 import { Trophy, TrendingUp, Target, Zap } from 'lucide-react';
 
 const LegendsSection = () => {
@@ -64,7 +65,7 @@ const LegendsSection = () => {
   };
 
   return (
-    <section id="legends" className="min-h-screen flex items-center py-20 px-4">
+    <section id="legends" className="min-h-screen py-20 px-4">
       <div className="max-w-7xl mx-auto w-full">
         {/* Section Header */}
         <motion.div
@@ -90,95 +91,76 @@ const LegendsSection = () => {
           </p>
         </motion.div>
 
-        {/* Legends Grid */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          className="grid md:grid-cols-2 lg:grid-cols-4 gap-6"
-        >
+        {/* Legends ScrollStack - Full width row cards with 20:80 split */}
+  <ScrollStack useWindowScroll itemStackDistance={0} itemDistance={0}>
           {legends.map((legend, index) => (
-            <motion.div
-              key={legend.name}
-              variants={cardVariants}
-              whileHover={{ 
-                y: -12,
-                rotateY: 5,
-                transition: { duration: 0.3 }
-              }}
-              className="group relative"
-            >
-              <Card className="glass-morphic hover-lift h-full border-0 relative overflow-hidden">
+            <ScrollStackItem key={legend.name}>
+              <Card className="glass-morphic hover-lift w-full border-0 relative overflow-hidden">
                 {/* Background gradient */}
                 <div className={`absolute inset-0 bg-gradient-to-br ${legend.color} opacity-40`} />
-                
-                {/* Achievement Badge */}
-                <div className="absolute top-4 right-4 z-20">
-                  <motion.div
-                    whileHover={{ scale: 1.1, rotate: 5 }}
-                    className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center"
-                  >
-                    <legend.icon size={16} className="text-primary" />
-                  </motion.div>
-                </div>
-
-                <CardContent className="p-6 relative z-10 h-full flex flex-col">
-                  {/* Profile Image */}
-                  <div className="relative mb-4">
-                    <div className="w-20 h-20 mx-auto bg-gradient-to-br from-primary/20 to-accent/20 rounded-full flex items-center justify-center mb-3">
-                      <div className="w-16 h-16 bg-background/20 rounded-full flex items-center justify-center text-2xl font-bold text-primary">
-                        {legend.name.charAt(0)}
+                <div className="relative z-10 flex flex-row w-full h-full">
+                  {/* 20% Image/Avatar */}
+                  <div className="flex flex-col items-center justify-center w-1/5 min-w-[120px] p-2">
+                    <div className="relative">
+                      <div className="w-20 h-20 bg-gradient-to-br from-primary/20 to-accent/20 rounded-full flex items-center justify-center mb-3">
+                        <div className="w-16 h-16 bg-background/20 rounded-full flex items-center justify-center text-2xl font-bold text-primary">
+                          {legend.name.charAt(0)}
+                        </div>
+                      </div>
+                      {/* Animated ring */}
+                      <motion.div
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                        className="absolute inset-0 w-20 h-20 border-2 border-primary/30 border-t-primary rounded-full"
+                      />
+                      {/* Achievement Badge */}
+                      <div className="absolute -top-2 -right-2 z-20">
+                        <motion.div
+                          whileHover={{ scale: 1.1, rotate: 5 }}
+                          className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center"
+                        >
+                          <legend.icon size={16} className="text-primary" />
+                        </motion.div>
                       </div>
                     </div>
-                    
-                    {/* Animated ring */}
-                    <motion.div
-                      animate={{ rotate: 360 }}
-                      transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                      className="absolute inset-0 w-20 h-20 mx-auto border-2 border-primary/30 border-t-primary rounded-full"
-                    />
                   </div>
-
-                  {/* Name and Achievement */}
-                  <div className="text-center mb-4">
-                    <h3 className="font-bold text-lg text-foreground mb-1">
-                      {legend.name}
-                    </h3>
-                    <p className="text-sm text-primary font-medium">
-                      {legend.achievement}
+                  {/* 80% Text/Stats */}
+                  <CardContent className="flex-1 flex flex-col justify-center p-2">
+                    <div className="mb-2">
+                      <h3 className="font-bold text-lg text-foreground mb-1">
+                        {legend.name}
+                      </h3>
+                      <p className="text-sm text-primary font-medium">
+                        {legend.achievement}
+                      </p>
+                    </div>
+                    <p className="text-xs text-muted-foreground mb-4">
+                      {legend.description}
                     </p>
-                  </div>
-
-                  {/* Description */}
-                  <p className="text-xs text-muted-foreground text-center mb-4 flex-grow">
-                    {legend.description}
-                  </p>
-
-                  {/* Stats */}
-                  <div className="space-y-2 pt-4 border-t border-border/20">
-                    <div className="flex justify-between items-center text-xs">
-                      <span className="text-muted-foreground">ROI:</span>
-                      <span className="font-semibold text-primary">{legend.stats.roi}</span>
+                    <div className="flex flex-row gap-8 items-center border-t border-border/20 pt-3">
+                      <div className="flex flex-col text-xs">
+                        <span className="text-muted-foreground">ROI:</span>
+                        <span className="font-semibold text-primary">{legend.stats.roi}</span>
+                      </div>
+                      <div className="flex flex-col text-xs">
+                        <span className="text-muted-foreground">Timeframe:</span>
+                        <span className="font-medium text-foreground/80">{legend.stats.time}</span>
+                      </div>
+                      <div className="flex flex-col text-xs">
+                        <span className="text-muted-foreground">Badge:</span>
+                        <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full">
+                          {legend.stats.badge}
+                        </span>
+                      </div>
                     </div>
-                    <div className="flex justify-between items-center text-xs">
-                      <span className="text-muted-foreground">Timeframe:</span>
-                      <span className="font-medium text-foreground/80">{legend.stats.time}</span>
-                    </div>
-                    <div className="flex justify-center mt-3">
-                      <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full">
-                        {legend.stats.badge}
-                      </span>
-                    </div>
-                  </div>
-                </CardContent>
-
+                  </CardContent>
+                </div>
                 {/* Subtle glow effect */}
                 <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-lg" />
               </Card>
-            </motion.div>
+            </ScrollStackItem>
           ))}
-        </motion.div>
+        </ScrollStack>
 
         {/* Bottom CTA */}
         <motion.div

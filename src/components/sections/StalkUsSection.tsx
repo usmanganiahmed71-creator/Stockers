@@ -234,32 +234,7 @@ const StalkUsSection = () => {
             </div>
 
             {/* Newsletter Signup */}
-            <motion.div
-              variants={itemVariants}
-              className="mt-12"
-            >
-              <Card className="glass-morphic border-0 bg-gradient-to-br from-primary/10 to-accent/5">
-                <CardContent className="p-8 text-center">
-                  <motion.div
-                    animate={{ y: [0, -5, 0] }}
-                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                    className="text-3xl mb-4"
-                  >
-                    📧
-                  </motion.div>
-                  <h4 className="text-xl font-bold mb-3 text-foreground">
-                    Stay Updated
-                  </h4>
-                  <p className="text-muted-foreground mb-6">
-                    Subscribe to our newsletter for weekly market insights, 
-                    exclusive tips, and early access to new courses.
-                  </p>
-                  <Button className="w-full bg-primary hover:bg-primary/90 hover-lift">
-                    Subscribe to Newsletter
-                  </Button>
-                </CardContent>
-              </Card>
-            </motion.div>
+            
           </motion.div>
         </motion.div>
       </div>

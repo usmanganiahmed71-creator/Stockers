@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import Aurora from '../Aurora';
+import GradientText from '../GradientText';
 import { motion } from 'framer-motion';
 
 const HeroSection = () => {
@@ -16,22 +18,9 @@ const HeroSection = () => {
       id="hero"
       className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden"
     >
-      {/* Background with subtle pattern */}
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-background/95 to-accent/10" />
-      <div className="absolute inset-0 bg-stock-pattern opacity-20" />
-      
-      {/* Floating elements for depth */}
-      <div className="absolute inset-0">
-        <motion.div
-          animate={{ y: [0, -20, 0], rotate: [0, 5, 0] }}
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-1/4 left-1/4 w-32 h-32 bg-primary/5 rounded-full blur-xl"
-        />
-        <motion.div
-          animate={{ y: [0, 20, 0], rotate: [0, -5, 0] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-3/4 right-1/4 w-48 h-48 bg-accent/10 rounded-full blur-2xl"
-        />
+      {/* Aurora animated background */}
+      <div className="absolute inset-0 z-0">
+        <Aurora />
       </div>
 
       <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
@@ -43,7 +32,7 @@ const HeroSection = () => {
           className="mb-8"
         >
           <h1 className="text-7xl md:text-8xl lg:text-9xl font-bold mb-4">
-            <span className="gradient-text">Stockers</span>
+            <GradientText>Stockers</GradientText>
           </h1>
           <motion.div
             initial={{ opacity: 0 }}
